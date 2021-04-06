@@ -3,15 +3,15 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import {
   Login,
-  // Register,
-  // MainPage,
-  // Profile,
-  // AllComics,
-  // ComicDetails,
-  // FavoriteComics,
-  // AllCharacters,
-  // FavoriteCharacters,
-  // CharacterDetails
+  Register,
+  MainPage,
+  Profile,
+  AllComics,
+  ComicDetails,
+  FavoriteComics,
+  AllCharacters,
+  FavoriteCharacters,
+  CharacterDetails
 } from './pages';
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        {/* <Route path="/register" component={ Register } />
+        <Route path="/register" component={ Register } />
         <Route path="/profile" component={ Profile } />
         <Route path="/main" component={ MainPage } />
         <Route path="/comics" component={ AllComics } />
@@ -27,7 +27,7 @@ function App() {
         <Route exact path="/comics/favorite" component={ FavoriteComics } />
         <Route path="/characters" component={ AllCharacters } />
         <Route exact path="/characters/:id" component={ CharacterDetails } />
-        <Route exact path="/characters/favorite" component={ FavoriteCharacters } /> */}
+        <Route exact path="/characters/favorite" component={ FavoriteCharacters } />
       </Switch>
     </BrowserRouter>
   );
