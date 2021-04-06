@@ -12,7 +12,7 @@ import {
   // AllCharacters,
   // FavoriteCharacters,
   // CharacterDetails
-} from './Pages';
+} from './pages';
 
 function App() {
   return (
