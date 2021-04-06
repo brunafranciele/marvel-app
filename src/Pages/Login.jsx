@@ -19,7 +19,7 @@ export default function Login({ history }) {
   return (
     <div className="login-container">
       <div className="login-header">
-        <h1 className="login-title">Trybeer</h1>
+        <h1 className="login-title">Marvel</h1>
         <div className="login-image" />
       </div>
       <form className="login-form">
