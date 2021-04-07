@@ -4,7 +4,6 @@ import './App.css';
 import {
   Login,
   Register,
-  MainPage,
   Profile,
   AllComics,
   ComicDetails,
@@ -21,7 +20,6 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route path="/register" component={ Register } />
         <Route path="/profile" component={ Profile } />
-        <Route path="/main" component={ MainPage } />
         <Route path="/comics" component={ AllComics } />
         <Route exact path="/comics/:id" component={ ComicDetails } />
         <Route exact path="/comics/favorite" component={ FavoriteComics } />

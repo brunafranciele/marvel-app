@@ -3,7 +3,6 @@
  */
 export { default as Login } from './Login';
 export { default as Register } from './Register';
-export { default as MainPage } from './MainPage';
 export { default as Profile } from './Profile';
 export { default as AllComics } from './comics/AllComics';
 export { default as ComicDetails } from './comics/ComicDetails';

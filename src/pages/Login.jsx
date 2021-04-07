@@ -44,7 +44,7 @@ export default function Login() {
           <Button
             title="Log in"
             isDisabled={isDisabled}
-            onClick={() => history.push('/main')}
+            onClick={() => history.push('/characters')}
           />
           <Button
             title="Sign up"
