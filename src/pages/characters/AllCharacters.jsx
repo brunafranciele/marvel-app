@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import { allCharactersURL } from '../../service/endpoints';
-import { getInfo } from '../../service/marvelAPIRequest';
+import { allCharactersURL, nameCharacter1, nameCharacter2 } from '../../service/endpoints';
+import { getInfo, getByName } from '../../service/marvelAPIRequest';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import '../../styles/Characters.css';
@@ -10,6 +10,8 @@ export default function AllCharacters() {
   const [dataAPI, setDataAPI] = useState([]);
   const [offset, setOffset] = useState(0);
   const [nameParameter, setNameParameter] = useState('');
+  const [actualCharacter, setActualCharacter] = useState(null);
+  const [att, setAtt] = useState({});
   const history = useHistory();
   const handleClick = () => {
     var count = offset + 10;
@@ -19,29 +21,46 @@ export default function AllCharacters() {
     const func = async () => {
       const responseAPI = await getInfo(allCharactersURL, offset);
       setDataAPI(responseAPI);
-      console.log(responseAPI);
+      // console.log(responseAPI);
     }
     func();
   }, [offset]);
+  useEffect(() => {
+    setAtt(actualCharacter);
+  }, [actualCharacter])
+  const searchCharacterByName = async () => {
+    const result = await getByName(nameCharacter1, 'characters', nameParameter, nameCharacter2);
+    setActualCharacter(result);
+  }
+  const setField = (field, value) => {
+    if (field === 'Search Character') return setNameParameter(value);
+  };
+  const cleanState = () => {
+    setActualCharacter(null);
+    setNameParameter('');
+  };
   return (
     <div >
       <h2>Characters</h2>
       <div>
         <Input
-          title="SearchCharacter"
+          title="Search Character"
           type="text"
           value={ nameParameter }
-          onChange={ ({target}) => setNameParameter(target.value) }
-          placeholder="Search character"
+          onChange={ setField }
         />
         <Button
           title="Search"
           className="indiv-btn"
-          onClick={ async () => await  }
+          onClick={ async () => await searchCharacterByName() }
         />
+        <button type="button" onClick={() => cleanState()}>Get All</button>
       </div>
+      {console.log(actualCharacter)}
       <div>
-        { dataAPI.length > 0 && dataAPI.map((character, index) => (
+        {
+        actualCharacter === null ?
+        dataAPI.map((character, index) => (
           <div key={ index }>
             <p>{ character.name }</p>
             <img
@@ -52,8 +71,21 @@ export default function AllCharacters() {
               <p>More details</p>
             </Link>
           </div>
-        ))}
-        <button type="button" onClick={() => handleClick()}>Próxima</button>
+        )) :
+        <div>
+          <p>{ actualCharacter.name }</p>
+          <img
+            className="character-pic"
+            src={ `${actualCharacter.thumbnail && actualCharacter.thumbnail.path}.${actualCharacter.thumbnail && actualCharacter.thumbnail.extension}`}
+            alt="Character Thumbnail linha 69"/>
+          <Link to={`/character/${actualCharacter.id}`}>
+            <p>More details</p>
+          </Link>
+        </div>
+        }
+      </div>
+      <div>
+        <button type="button" onClick={() => handleClick()}>Next</button>
       </div>
     </div>
   );
