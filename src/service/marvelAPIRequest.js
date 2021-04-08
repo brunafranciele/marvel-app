@@ -1,5 +1,5 @@
-export const getData = async (endopoint) => {
-  const data = await fetch(endopoint);
-  const response = await data.results;
-  return response
+export const getInfo = async (endpoint, offset) => {
+  const characters = await fetch(`${endpoint}&offset=${offset}`);
+  const response = await characters.json();
+  return response.data.results;
 };
