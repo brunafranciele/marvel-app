@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import { generalEndpoint1, generalEndpoint2 } from '../../service/endpoints';
 import { getById } from '../../service/marvelAPIRequest';
 import '../../styles/Characters.css'
-
 export default function CharacterDetails({ match: { params: { id } } }) {
   const [comic, setComic] = useState([]);
-
   useEffect(() => {
     const getComicId = async () => {
       const result = await getById(generalEndpoint1, 'comics', id, generalEndpoint2);
@@ -14,13 +12,11 @@ export default function CharacterDetails({ match: { params: { id } } }) {
     };
     getComicId();
   }, [id]);
-
   const getCharacterId = (cha) => {
     const splittedId = cha.resourceURI.split('/');
     const rightId = splittedId[6];
     return rightId;
   }
-
   return (
     <div >
       <h2>Comic's Detail</h2>
