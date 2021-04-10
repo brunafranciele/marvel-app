@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
-import { allCharactersURL, generalEndpoint1, generalEndpoint2 } from '../../service/endpoints';
-import { getInfo, getByName } from '../../service/marvelAPIRequest';
+import { Link } from 'react-router-dom';
+import { allCharactersURL } from '../../service/endpoints';
+import { getInfo } from '../../service/marvelAPIRequest';
+import { getCharacterByName } from '../../service/localRequest';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import '../../styles/Characters.css';
@@ -12,33 +13,38 @@ export default function AllCharacters() {
   const [nameParameter, setNameParameter] = useState('');
   const [actualCharacter, setActualCharacter] = useState(null);
   const [att, setAtt] = useState({});
-  const history = useHistory();
+
   const handleClick = () => {
     var count = offset + 10;
     return setOffset(count);
   };
+
   useEffect(() => {
     const func = async () => {
       const responseAPI = await getInfo(allCharactersURL, offset);
       setDataAPI(responseAPI);
-      // console.log(responseAPI);
     }
     func();
   }, [offset]);
+
   useEffect(() => {
     setAtt(actualCharacter);
   }, [actualCharacter])
+
   const searchCharacterByName = async () => {
-    const result = await getByName(generalEndpoint1, 'characters', nameParameter, generalEndpoint2);
+    const result = await getCharacterByName(nameParameter);
     setActualCharacter(result);
   }
+
   const setField = (field, value) => {
     if (field === 'Search Character') return setNameParameter(value);
   };
+
   const cleanState = () => {
     setActualCharacter(null);
     setNameParameter('');
   };
+  
   return (
     <div >
       <h2>Characters</h2>
@@ -76,7 +82,7 @@ export default function AllCharacters() {
           <p>{ actualCharacter.name }</p>
           <img
             className="character-pic"
-            src={ `${actualCharacter.thumbnail && actualCharacter.thumbnail.path}.${actualCharacter.thumbnail && actualCharacter.thumbnail.extension}`}
+            src={ actualCharacter.image && actualCharacter.image }
             alt="Character Thumbnail"/>
           <Link to={`/characters/${actualCharacter.id}`}>
             <p>More details</p>

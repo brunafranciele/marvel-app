@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
-import { allComicsURL, generalEndpoint1, generalEndpoint2 } from '../../service/endpoints';
-import { getInfo, getByTitle } from '../../service/marvelAPIRequest';
+import { Link } from 'react-router-dom';
+import { allComicsURL } from '../../service/endpoints';
+import { getInfo } from '../../service/marvelAPIRequest';
+import { getComicByTitle } from '../../service/localRequest';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import '../../styles/Characters.css';
@@ -9,10 +10,10 @@ import '../../styles/Characters.css';
 export default function AllCharacters() {
   const [dataAPI, setDataAPI] = useState([]);
   const [offset, setOffset] = useState(0);
-  const [nameParameter, setNameParameter] = useState('');
+  const [titleParameter, setTitleParameter] = useState('');
   const [actualComic, setActualComic] = useState(null);
   const [att, setAtt] = useState({});
-  const history = useHistory();
+
   const handleClick = () => {
     var count = offset + 10;
     return setOffset(count);
@@ -21,26 +22,26 @@ export default function AllCharacters() {
     const func = async () => {
       const responseAPI = await getInfo(allComicsURL, offset);
       setDataAPI(responseAPI);
-      // console.log(responseAPI);
     }
     func();
   }, [offset]);
+
   useEffect(() => {
     setAtt(actualComic);
   }, [actualComic])
 
   const searchComicByTitle = async () => {
-    const result = await getByTitle(generalEndpoint1, 'comics', nameParameter, generalEndpoint2);
+    const result = await getComicByTitle(titleParameter);
     setActualComic(result);
   }
 
   const setField = (field, value) => {
-    if (field === 'Search Comic') return setNameParameter(value);
+    if (field === 'Search Comic') return setTitleParameter(value);
   };
 
   const cleanState = () => {
     setActualComic(null);
-    setNameParameter('');
+    setTitleParameter('');
   };
 
   return (
@@ -50,7 +51,7 @@ export default function AllCharacters() {
         <Input
           title="Search Comic"
           type="text"
-          value={ nameParameter }
+          value={ titleParameter }
           onChange={ setField }
         />
         <Button
@@ -80,7 +81,7 @@ export default function AllCharacters() {
           <p>{ actualComic.title }</p>
           <img
             className="character-pic"
-            src={ `${actualComic.thumbnail && actualComic.thumbnail.path}.${actualComic.thumbnail && actualComic.thumbnail.extension}`}
+            src={ actualComic.image }
             alt="Character Thumbnail"/>
           <Link to={`/comics/${actualComic.id}`}>
             <p>More details</p>
