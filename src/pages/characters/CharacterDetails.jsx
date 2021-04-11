@@ -29,8 +29,8 @@ export default function CharacterDetails({ match: { params: { id } } }) {
 
   const addFavoriteOnDB = async () => {
     console.log(character.id, character.name, character.image, 'comics', id_user)
-    const result = await addFavorite(character.id, character.name, character.image, 'comics', id_user);
-    console.log(result)
+    const resultAPI = await addFavorite(character.id, character.name, character.image, 'comics', id_user);
+    console.log(resultAPI)
   }
 
   return (
