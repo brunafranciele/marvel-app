@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getComicById } from '../../service/localRequest';
+import { getComicById } from '../../service/nativeAPIRequest';
 import '../../styles/Characters.css'
 
 export default function CharacterDetails({ match: { params: { id } } }) {

@@ -7,10 +7,9 @@ import {
   Profile,
   AllComics,
   ComicDetails,
-  FavoriteComics,
   AllCharacters,
-  FavoriteCharacters,
-  CharacterDetails
+  CharacterDetails,
+  Favorite
 } from './pages';
 
 function App() {
@@ -22,10 +21,9 @@ function App() {
         <Route path="/profile" component={ Profile } />
         <Route exact path="/comics" component={ AllComics } />
         <Route exact path="/comics/:id" component={ ComicDetails } />
-        <Route exact path="/comics/favorite" component={ FavoriteComics } />
+        <Route exact path="/favorite/:id" component={ Favorite } />
         <Route exact path="/characters" component={ AllCharacters } />
         <Route exact path="/characters/:id" component={ CharacterDetails } />
-        <Route exact path="/characters/favorite" component={ FavoriteCharacters } />
       </Switch>
     </BrowserRouter>
   );

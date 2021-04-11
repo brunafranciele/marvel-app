@@ -3,11 +3,13 @@ import { useHistory } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { validateEmail, validatePassword } from '../utils/validations';
+import { loginUser } from '../service/nativeAPIRequest';
 
 export default function Login() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -15,6 +17,18 @@ export default function Login() {
       setIsDisabled(false);
     }
   }, [email, password]);
+
+  const setUserOnAPI = async () => {
+    const requestAPI = await loginUser(email, password);
+    return requestAPI;
+  };
+
+  const handleClick = async () => {
+    const resp =  await setUserOnAPI();
+    console.log(resp, 'resposta api login')
+    if (resp && !resp.message) history.push('/characters')
+    if(resp && resp.message) setMessage(resp.message);
+  }
 
   const setField = (field, value) => {
     if (field === 'Email') return setEmail(value);
@@ -44,7 +58,7 @@ export default function Login() {
           <Button
             title="Log in"
             isDisabled={isDisabled}
-            onClick={() => history.push('/characters')}
+            onClick={() => handleClick() }
           />
           <Button
             title="Sign up"
@@ -52,6 +66,7 @@ export default function Login() {
           />
         </section>
       </form>
+      {message ? <span>{message}</span> : null}
     </section>
   );
 }

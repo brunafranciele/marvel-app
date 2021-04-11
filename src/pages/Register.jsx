@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { validateEmail, validatePassword } from '../utils/validations';
+import { registerUser } from '../service/nativeAPIRequest';
 import { registerLS } from '../utils/localstorage';
 
 export default function Register() {
@@ -18,6 +19,15 @@ export default function Register() {
       registerLS(name, email, password);
     }
   }, [email, password, name]);
+
+  const setUserOnAPI = async () => {
+    const requestAPI = await registerUser(name, email, password);
+    return requestAPI;
+  };
+  const handleClick = async () => {
+    await setUserOnAPI();
+    history.push('/')
+  }
 
   const setField = (field, value) => {
     if (field === 'Email') return setEmail(value);
@@ -51,7 +61,7 @@ export default function Register() {
       <Button
         title="Register"
         isDisabled={isDisabled}
-        onClick={() => history.push('/main')}
+        onClick={() => handleClick() }
       />
     </form>
   );
