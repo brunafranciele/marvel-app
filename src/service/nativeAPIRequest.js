@@ -67,3 +67,11 @@ export const addFavorite = (id_favorite, name, url_image, related, user_id) => f
 })
   .then((response) => response.json())
   .catch((error) => console.log(error));
+
+  export const deleteFavorite = (id) => fetch(`${baseURL}favorite/delete`, {
+    method: 'DELETE',
+    headers: {
+      'Content-type': applicationJsonContent,
+    },
+    body: JSON.stringify({ id }),
+  }).then((response) => response);
