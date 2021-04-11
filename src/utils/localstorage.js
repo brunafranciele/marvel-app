@@ -22,3 +22,8 @@ export const verifyUser = (history) => {
   const { name, email, password } = storage;
   return { name, email, password };
 };
+
+export const setUserLogin = (token, name, email, id) => {
+  const previousUser = localStorage.setItem('user', JSON.stringify({ token: token, name: name, email: email, id: id }));
+  return previousUser;
+};
