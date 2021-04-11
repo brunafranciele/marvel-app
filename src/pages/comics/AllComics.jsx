@@ -7,6 +7,7 @@ import { getComicByTitle } from '../../service/nativeAPIRequest';
 import { verifyUser } from '../../utils/localstorage';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Menu from '../../components/Menu';
 import '../../styles/Characters.css';
 
 export default function AllCharacters() {
@@ -51,47 +52,50 @@ export default function AllCharacters() {
 
   return (
     <div >
+      <header>
+        <Menu />
+      </header>
       <h2>Comics</h2>
       <div>
         <Input
           title="Search Comic"
           type="text"
-          value={ titleParameter }
-          onChange={ setField }
+          value={titleParameter}
+          onChange={setField}
         />
         <Button
           title="Search"
           className="indiv-btn"
-          onClick={ async () => await searchComicByTitle() }
+          onClick={async () => await searchComicByTitle()}
         />
         <button type="button" onClick={() => cleanState()}>Get All</button>
       </div>
       {console.log(actualComic)}
       <div>
         {
-        actualComic === null ?
-        dataAPI.map((comic, index) => (
-          <div key={ index }>
-            <p>{ comic.title }</p>
-            <img
-              className="character-pic"
-              src={ `${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-              alt="Comic Thumbnail"/>
-            <Link to={`/comics/${comic.id}`}>
-              <p>More details</p>
-            </Link>
-          </div>
-        )) :
-        <div>
-          <p>{ actualComic.title }</p>
-          <img
-            className="character-pic"
-            src={ actualComic.image }
-            alt="Character Thumbnail"/>
-          <Link to={`/comics/${actualComic.id}`}>
-            <p>More details</p>
-          </Link>
-        </div>
+          actualComic === null ?
+            dataAPI.map((comic, index) => (
+              <div key={index}>
+                <p>{comic.title}</p>
+                <img
+                  className="character-pic"
+                  src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                  alt="Comic Thumbnail" />
+                <Link to={`/comics/${comic.id}`}>
+                  <p>More details</p>
+                </Link>
+              </div>
+            )) :
+            <div>
+              <p>{actualComic.title}</p>
+              <img
+                className="character-pic"
+                src={actualComic.image}
+                alt="Character Thumbnail" />
+              <Link to={`/comics/${actualComic.id}`}>
+                <p>More details</p>
+              </Link>
+            </div>
         }
       </div>
       <div>

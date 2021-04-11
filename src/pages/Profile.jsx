@@ -5,6 +5,7 @@ import Button from '../components/Button';
 import { validateEmail, validatePassword } from '../utils/validations';
 import { updateUser, verifyUser } from '../utils/localstorage';
 import { updateUserAPI } from '../service/nativeAPIRequest';
+import Menu from '../components/Menu';
 
 export default function Profile() {
   const [name, setName] = useState('');
@@ -23,7 +24,7 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    const { name, email, password, id , token } = verifyUser(history);
+    const { name, email, password, id, token } = verifyUser(history);
     setName(name);
     setEmail(email);
     setPassword(password);
@@ -53,33 +54,36 @@ export default function Profile() {
 
   return (
     <div className="profile-main-div">
+      <header>
+        <Menu />
+      </header>
       <form className="d-flex flex-column mt-4">
         <div className="register-inputs">
-        <Input
-          title="Name"
-          type="text"
-          value={ name }
-          onChange={ setField }
-        />
-        <Input
-          title="Email"
-          type="text"
-          value={ email }
-          onChange={ setField }
-        />
-        <Input
-          title="Password"
-          type="password"
-          value={ password }
-          onChange={ setField }
-        />
+          <Input
+            title="Name"
+            type="text"
+            value={name}
+            onChange={setField}
+          />
+          <Input
+            title="Email"
+            type="text"
+            value={email}
+            onChange={setField}
+          />
+          <Input
+            title="Password"
+            type="password"
+            value={password}
+            onChange={setField}
+          />
         </div>
       </form>
       <section className="register-section-btns">
         <Button
           title="Save"
-          isDisabled={ isDisabled }
-          onClick={ handleClick }
+          isDisabled={isDisabled}
+          onClick={handleClick}
         />
       </section>
       {message ? <span>{message}</span> : null}

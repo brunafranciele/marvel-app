@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { verifyUser } from '../utils/localstorage';
 import { getFavoriteByUserId, deleteFavorite } from '../service/nativeAPIRequest';
+import Menu from '../components/Menu';
 
 export default function Favorite() {
   const [favorite, setFavorite] = useState([]);
@@ -10,7 +11,7 @@ export default function Favorite() {
   const history = useHistory();
 
   const verifyTipyOfFavorite = (fav) => {
-    if( fav.related === 'comics') return `/characters/${fav.id_favorite}`;
+    if (fav.related === 'comics') return `/characters/${fav.id_favorite}`;
     return `/comics/${fav.id_favorite}`;
   }
 
@@ -30,7 +31,7 @@ export default function Favorite() {
     setAtt(favorite)
   }, [])
 
-  const removeFav = async (fav) =>{
+  const removeFav = async (fav) => {
     console.log(fav.id)
     const resultAPI = await deleteFavorite(fav.id);
     const responseAPI = await getFavoriteByUserId(id_user);
@@ -40,6 +41,9 @@ export default function Favorite() {
 
   return (
     <div >
+      <header>
+        <Menu />
+      </header>
       <h2>Favorite</h2>
       <div>
         {favorite.map((fav, index) => (

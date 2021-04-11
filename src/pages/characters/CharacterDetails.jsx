@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import { getCharacterById, addFavorite } from '../../service/nativeAPIRequest';
 import { verifyUser } from '../../utils/localstorage';
 import { useHistory } from 'react-router-dom';
+import Menu from '../../components/Menu';
 import '../../styles/Characters.css'
 
 export default function CharacterDetails({ match: { params: { id } } }) {
   const [character, setCharacter] = useState([]);
   const [id_user, setId] = useState('');
   const history = useHistory();
-  
+
   useEffect(() => {
     const { email, id: id_user } = verifyUser(history);
     setId(id_user)
@@ -35,25 +36,28 @@ export default function CharacterDetails({ match: { params: { id } } }) {
 
   return (
     <div >
+      <header>
+        <Menu />
+      </header>
       <h2>Character's Detail</h2>
       <div>
-        <h3>{ character.name }</h3>
+        <h3>{character.name}</h3>
         <img
           className="character-pic"
-          src={ character.image && character.image }
+          src={character.image && character.image}
           alt="Character Thumbnail"
         />
-        <p>{ character.description && character.description }</p>
+        <p>{character.description && character.description}</p>
         <h4>Comics:</h4>
         {character.comics && character.comics.map((element, index) => (
-          <div key={ index }>
-            <Link to={`/comics/${getComicId(element)}`}>{ element.name }</Link>
+          <div key={index}>
+            <Link to={`/comics/${getComicId(element)}`}>{element.name}</Link>
           </div>
         ))}
         <a href={character.externalInformation}>External information</a>
         <button type='button' onClick={() => addFavoriteOnDB(character.id, character.name, character.image, 'comics', id_user)}>
           Favorite
-        </button> 
+        </button>
       </div>
     </div>
   );

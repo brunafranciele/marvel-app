@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getComicById, addFavorite } from '../../service/nativeAPIRequest';
 import { verifyUser } from '../../utils/localstorage';
 import { useHistory } from 'react-router-dom';
+import Menu from '../../components/Menu';
 import '../../styles/Characters.css'
 
 export default function CharacterDetails({ match: { params: { id } } }) {
@@ -27,8 +28,6 @@ export default function CharacterDetails({ match: { params: { id } } }) {
     return rightId;
   }
 
-
-
   const addFavoriteOnDB = async () => {
     console.log(comic.id, comic.title, comic.image, 'characters', id_user)
     const result = await addFavorite(comic.id, comic.title, comic.image, 'characters', id_user);
@@ -37,25 +36,28 @@ export default function CharacterDetails({ match: { params: { id } } }) {
 
   return (
     <div >
+      <header>
+        <Menu />
+      </header>
       <h2>Comic's Detail</h2>
       <div>
-        <h3>{ comic.title }</h3>
+        <h3>{comic.title}</h3>
         <img
           className="character-pic"
-          src={ comic.image }
+          src={comic.image}
           alt="Character Thumbnail"
         />
-        <p>{ comic.description && comic.description }</p>
-        { comic.characters && comic.characters.length > 0 ? (<h4>Characters:</h4>) : '' }
+        <p>{comic.description && comic.description}</p>
+        {comic.characters && comic.characters.length > 0 ? (<h4>Characters:</h4>) : ''}
         {comic.characters && comic.characters.map((element, index) => (
-          <div key={ index }>
-            <Link to={`/characters/${getCharacterId(element)}`}>{ element.name }</Link>
+          <div key={index}>
+            <Link to={`/characters/${getCharacterId(element)}`}>{element.name}</Link>
           </div>
         ))}
         <a href={comic.externalInformation}>External information</a>
         <button type='button' onClick={() => addFavoriteOnDB(comic.id, comic.title, comic.image, 'characters', id_user)}>
           Favorite
-        </button> 
+        </button>
       </div>
     </div>
   );

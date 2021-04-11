@@ -7,6 +7,7 @@ import { getCharacterByName } from '../../service/nativeAPIRequest';
 import { verifyUser } from '../../utils/localstorage';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Menu from '../../components/Menu';
 import '../../styles/Characters.css';
 
 export default function AllCharacters() {
@@ -52,6 +53,9 @@ export default function AllCharacters() {
   
   return (
     <div >
+      <header>
+        <Menu />
+      </header>
       <h2>Characters</h2>
       <div>
         <Input
