@@ -22,9 +22,11 @@ export const getComicById = async (id) => {
 };
 export const getFavoriteByUserId = async (id) => {
   const favorite = await fetch(`${baseURL}favorite/${id}`);
+  console.log(favorite, 'nativeAPI')
   const response = await favorite.json();
   return response;
 };
+
 export const registerUser = async (name, email, password) => {
   const newUser = await fetch(`${baseURL}user/register`, {
     method: 'POST',
@@ -55,3 +57,4 @@ export const updateUserAPI = (name, email, password, id, token) => fetch(`${base
   },
   body: JSON.stringify({ name, email, password, id }),
 }).then((response) => response);
+

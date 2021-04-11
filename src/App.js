@@ -21,7 +21,7 @@ function App() {
         <Route path="/profile" component={ Profile } />
         <Route exact path="/comics" component={ AllComics } />
         <Route exact path="/comics/:id" component={ ComicDetails } />
-        <Route exact path="/favorite/:id" component={ Favorite } />
+        <Route exact path="/favorite" component={ Favorite } />
         <Route exact path="/characters" component={ AllCharacters } />
         <Route exact path="/characters/:id" component={ CharacterDetails } />
       </Switch>
