@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { allComicsURL } from '../../service/endpoints';
 import { getInfo } from '../../service/marvelAPIRequest';
 import { getComicByTitle } from '../../service/nativeAPIRequest';
+import { verifyUser } from '../../utils/localstorage';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import '../../styles/Characters.css';
@@ -13,18 +15,21 @@ export default function AllCharacters() {
   const [titleParameter, setTitleParameter] = useState('');
   const [actualComic, setActualComic] = useState(null);
   const [att, setAtt] = useState({});
+  const history = useHistory();
 
   const handleClick = () => {
     var count = offset + 10;
     return setOffset(count);
   };
   useEffect(() => {
+    const { email } = verifyUser(history);
+    if (!email) return null;
     const func = async () => {
       const responseAPI = await getInfo(allComicsURL, offset);
       setDataAPI(responseAPI);
     }
     func();
-  }, [offset]);
+  }, [offset, history]);
 
   useEffect(() => {
     setAtt(actualComic);

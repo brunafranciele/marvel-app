@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getCharacterById } from '../../service/nativeAPIRequest';
+import { verifyUser } from '../../utils/localstorage';
+import { useHistory } from 'react-router-dom';
 import '../../styles/Characters.css'
 
 export default function CharacterDetails({ match: { params: { id } } }) {
   const [character, setCharacter] = useState([]);
+  const history = useHistory();
   
   useEffect(() => {
+    const { email } = verifyUser(history);
+    if (!email) return null;
     const getCharacterId = async () => {
       const result = await getCharacterById(id);
       setCharacter(result);
     };
     getCharacterId();
-  }, [id]);
+  }, [id, history]);
 
   const getComicId = (cha) => {
     const splittedId = cha.resourceURI.split('/');
