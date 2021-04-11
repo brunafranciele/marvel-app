@@ -4,7 +4,7 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import { validateEmail, validatePassword } from '../utils/validations';
 import { registerUser } from '../service/nativeAPIRequest';
-import { registerLS } from '../utils/localstorage';
+import { setUser } from '../utils/localstorage';
 
 export default function Register() {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -16,7 +16,7 @@ export default function Register() {
   useEffect(() => {
     if (validateEmail(email) && validatePassword(password)) {
       setIsDisabled(false);
-      registerLS(name, email, password);
+      setUser(name, email, password);
     }
   }, [email, password, name]);
 

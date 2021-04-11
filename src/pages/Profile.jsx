@@ -4,6 +4,7 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import { validateEmail, validatePassword } from '../utils/validations';
 import { updateUser, verifyUser } from '../utils/localstorage';
+import { updateUserAPI } from '../service/nativeAPIRequest';
 
 export default function Profile() {
   const [name, setName] = useState('');
@@ -11,6 +12,8 @@ export default function Profile() {
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [message, setMessage] = useState('');
+  const [id, setId] = useState('');
+  const [token, setToken] = useState('');
   const history = useHistory();
 
   const setField = (field, value) => {
@@ -20,20 +23,31 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    const { name, email, password } = verifyUser(history);
+    const { name, email, password, id , token } = verifyUser(history);
     setName(name);
     setEmail(email);
     setPassword(password);
+    setId(id);
+    setToken(token);
   }, [history]);
 
   useEffect(() => {
-    if (validateEmail(email) && validatePassword(password)) {
+    if (validateEmail(email)) {
       setIsDisabled(false);
+      updateUser(name, email, password)
     }
-  }, [email, password]);
+  }, [email, name, password]);
 
-  function handleClick() {
-    updateUser(name, email, password);
+  const updateUserOnDB = async () => {
+    console.log(name, email, password, id, token, 'body do front')
+    const requestAPI = await updateUserAPI(name, email, password, id, token);
+    console.log(requestAPI, 'pagina profile resposta');
+    return requestAPI;
+  };
+
+  const handleClick = async () => {
+    await updateUserOnDB(name, email, password, id, token);
+    updateUser(name, email, password)
     setMessage('Atualização concluída com sucesso');
   }
 

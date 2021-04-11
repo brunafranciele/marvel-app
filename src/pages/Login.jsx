@@ -28,8 +28,8 @@ export default function Login() {
     const resp =  await setUserOnAPI();
     console.log(resp, 'resposta api login')
     if (resp && !resp.message) {
-      const { token, name, email, id } = await resp;
-      setUserLogin(token, name, email, id)
+      const { token, name, email, id, password } = await resp;
+      setUserLogin(token, name, email, id, password)
       history.push('/characters')
     }
     if(resp && resp.message) setMessage(resp.message);

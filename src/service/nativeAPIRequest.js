@@ -1,36 +1,30 @@
 const baseURL = 'http://localhost:3001/'
-
 const applicationJsonContent = 'application/json';
 export const getCharacterByName = async (name) => {
   const character = await fetch(`${baseURL}character/name/${name}`);
   const response = await character.json();
   return response;
 };
-
 export const getComicByTitle = async (title) => {
   const comic = await fetch(`${baseURL}comic/title/${title}`);
   const response = await comic.json();
   return response;
 };
-
 export const getCharacterById = async (id) => {
   const character = await fetch(`${baseURL}character/${id}`);
   const response = await character.json();
   return response;
 };
-
 export const getComicById = async (id) => {
   const comic = await fetch(`${baseURL}comic/${id}`);
   const response = await comic.json();
   return response;
 };
-
 export const getFavoriteByUserId = async (id) => {
   const favorite = await fetch(`${baseURL}favorite/${id}`);
   const response = await favorite.json();
   return response;
 };
-
 export const registerUser = async (name, email, password) => {
   const newUser = await fetch(`${baseURL}user/register`, {
     method: 'POST',
@@ -43,7 +37,6 @@ export const registerUser = async (name, email, password) => {
     .catch((error) => console.log(error));
   return newUser;
 };
-
 export const loginUser = (email, password) => fetch(`${baseURL}user/login`, {
   method: 'POST',
   headers: {
@@ -52,5 +45,13 @@ export const loginUser = (email, password) => fetch(`${baseURL}user/login`, {
   body: JSON.stringify({ email, password }),
 })
   .then((response) => response.json())
-  // .then((data) => console.log(data, 'resposta da api'))
   .catch((error) => console.log(error));
+  
+export const updateUserAPI = (name, email, password, id, token) => fetch(`${baseURL}user/update`, {
+  method: 'PUT',
+  headers: {
+    'Content-type': applicationJsonContent,
+    authorization: token,
+  },
+  body: JSON.stringify({ name, email, password, id }),
+}).then((response) => response);
