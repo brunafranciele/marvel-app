@@ -58,3 +58,12 @@ export const updateUserAPI = (name, email, password, id, token) => fetch(`${base
   body: JSON.stringify({ name, email, password, id }),
 }).then((response) => response);
 
+export const addFavorite = (id_favorite, name, url_image, related, user_id) => fetch(`${baseURL}favorite`, {
+  method: 'POST',
+  headers: {
+    'Content-type': applicationJsonContent,
+  },
+  body: JSON.stringify({ id_favorite, name, url_image, related, user_id }),
+})
+  .then((response) => response.json())
+  .catch((error) => console.log(error));

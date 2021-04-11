@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getCharacterById } from '../../service/nativeAPIRequest';
+import { getCharacterById, addFavorite } from '../../service/nativeAPIRequest';
 import { verifyUser } from '../../utils/localstorage';
 import { useHistory } from 'react-router-dom';
 import '../../styles/Characters.css'
 
 export default function CharacterDetails({ match: { params: { id } } }) {
   const [character, setCharacter] = useState([]);
+  const [id_user, setId] = useState('');
   const history = useHistory();
   
   useEffect(() => {
-    const { email } = verifyUser(history);
+    const { email, id: id_user } = verifyUser(history);
+    setId(id_user)
     if (!email) return null;
     const getCharacterId = async () => {
       const result = await getCharacterById(id);
@@ -23,6 +25,12 @@ export default function CharacterDetails({ match: { params: { id } } }) {
     const splittedId = cha.resourceURI.split('/');
     const rightId = splittedId[6];
     return rightId;
+  }
+
+  const addFavoriteOnDB = async () => {
+    console.log(character.id, character.name, character.image, 'comics', id_user)
+    const result = await addFavorite(character.id, character.name, character.image, 'comics', id_user);
+    console.log(result)
   }
 
   return (
@@ -43,6 +51,9 @@ export default function CharacterDetails({ match: { params: { id } } }) {
           </div>
         ))}
         <a href={character.externalInformation}>External information</a>
+        <button type='button' onClick={() => addFavoriteOnDB(character.id, character.name, character.image, 'comics', id_user)}>
+          Favorite
+        </button> 
       </div>
     </div>
   );
