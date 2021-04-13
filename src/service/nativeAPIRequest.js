@@ -75,3 +75,15 @@ export const addFavorite = (id_favorite, name, url_image, related, user_id) => f
     },
     body: JSON.stringify({ id }),
   }).then((response) => response);
+
+  export const getAllCharacters = async (offset) => {
+    const all = await fetch(`${baseURL}character/all/${offset}`)
+    const response = await all.json();
+    return response;
+  };
+
+  export const getAllComics = async (offset) => {
+    const all = await fetch(`${baseURL}comic/all/${offset}`)
+    const response = await all.json();
+    return response;
+  };

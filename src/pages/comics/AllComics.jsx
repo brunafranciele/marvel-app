@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import { allComicsURL } from '../../service/endpoints';
-import { getInfo } from '../../service/marvelAPIRequest';
-import { getComicByTitle } from '../../service/nativeAPIRequest';
+import { getComicByTitle, getAllComics } from '../../service/nativeAPIRequest';
 import { verifyUser } from '../../utils/localstorage';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -35,7 +33,7 @@ export default function AllCharacters() {
     const { email } = verifyUser(history);
     if (!email) return null;
     const func = async () => {
-      const responseAPI = await getInfo(allComicsURL, offset);
+      const responseAPI = await getAllComics(offset);
       setDataAPI(responseAPI);
     }
     func();
