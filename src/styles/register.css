@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 .register-container{
   background-color: black;
   background-size: cover;
@@ -11,6 +11,9 @@
   align-items: center;
   align-self: center;
   overflow:hidden;
+  font-family: 'Acme', sans-serif;
+  font-size: 2.3vh;
+  color: rgb(240, 236, 236);
 }
 
 

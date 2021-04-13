@@ -13,6 +13,7 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -26,9 +27,17 @@ export default function Register() {
     const requestAPI = await registerUser(name, email, password);
     return requestAPI;
   };
+
+  const timeMessage = () => {
+    setTimeout(function () {
+      history.push('/')
+    }, 1300)
+  }
+
   const handleClick = async () => {
     await setUserOnAPI();
-    history.push('/')
+    setMessage('Registration successful! Please log in');
+    timeMessage();
   }
 
   const setField = (field, value) => {
@@ -69,6 +78,7 @@ export default function Register() {
         onClick={() => handleClick() }
       />
     </form>
+      {message ? <span>{message}</span> : null}
     </div>
   );
 }
