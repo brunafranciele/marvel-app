@@ -7,9 +7,10 @@ import Loading from '../components/Loading';
 import '../styles/pages.css';
 
 export default function Favorite() {
-  const [favorite, setFavorite] = useState([]);
+  const [favorite, setFavorite] = useState("You don't hav favorite!");
   const [att, setAtt] = useState({});
   const [id_user, setId] = useState('');
+  const [loading, setLoading] = useState(true)
   const history = useHistory();
 
   const verifyTipyOfFavorite = (fav) => {
@@ -38,6 +39,7 @@ export default function Favorite() {
     const resultAPI = await deleteFavorite(fav.id);
     const responseAPI = await getFavoriteByUserId(id_user);
     setFavorite(responseAPI);
+    setLoading(false)
     console.log(resultAPI)
   }
 
@@ -47,8 +49,9 @@ export default function Favorite() {
         <Menu />
       </header>
       <div>
-      {favorite.length === 0 ? <Loading /> : 
-        <div>
+      {favorite === "You don't hav favorite!" && loading
+      ? <Loading /> 
+      : <div>
       <h2 className='title'>Favorite</h2>
       <div className="all-cards">
         {favorite.map((fav, index) => (
