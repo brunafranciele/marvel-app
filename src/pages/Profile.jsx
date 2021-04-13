@@ -92,7 +92,7 @@ export default function Profile() {
         />
       {/* </section> */}
       </div>
-      {message ? <span>{message}</span> : null}
+      {message ? <span className='att'>{message}</span> : null}
     </div>
   );
 }

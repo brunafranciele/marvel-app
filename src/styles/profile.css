@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 .profile-container{
   background-color: black;
   height: 100vh;
@@ -7,6 +8,8 @@
   background-repeat: no-repeat;
   background-position: fixed;
   overflow:hidden;
+  color: rgb(240, 236, 236);
+  font-family: 'Acme', sans-serif;
 }
 
 .content-profile{
@@ -29,4 +32,9 @@
 
 .profile-button{
   margin-left: 10%;
+}
+
+.att{
+  color: rgb(240, 236, 236);
+  font-family: 'Acme', sans-serif;
 }
