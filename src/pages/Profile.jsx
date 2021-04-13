@@ -13,7 +13,6 @@ export default function Profile() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isDisabled, setIsDisabled] = useState(true);
   const [message, setMessage] = useState('');
   const [id, setId] = useState('');
   const [token, setToken] = useState('');
@@ -36,7 +35,6 @@ export default function Profile() {
 
   useEffect(() => {
     if (validateEmail(email)) {
-      setIsDisabled(false);
       updateUser(name, email, password)
     }
   }, [email, name, password]);
@@ -48,10 +46,17 @@ export default function Profile() {
     return requestAPI;
   };
 
+  const timeGif = () => {
+    setTimeout(function () {
+      setMessage('');
+    }, 1000)
+  }
+
   const handleClick = async () => {
     await updateUserOnDB(name, email, password, id, token);
     updateUser(name, email, password)
     setMessage('Atualização concluída com sucesso');
+    timeGif()
   }
 
   return (
@@ -86,7 +91,6 @@ export default function Profile() {
       {/* <section className="button profile-button"> */}
         <Button
           title="Save"
-          isDisabled={isDisabled}
           onClick={handleClick}
           className="button profile-button"
         />

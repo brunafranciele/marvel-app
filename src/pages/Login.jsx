@@ -14,7 +14,6 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [time, setTime] = useState(1);
   const [mudei, setMudei] = useState(false);
   const history = useHistory();
 
@@ -22,7 +21,7 @@ export default function Login() {
     if (validateEmail(email) && validatePassword(password)) {
       setIsDisabled(false);
     }
-  }, [email, password, time]);
+  }, [email, password]);
 
   const timeGif = () => {
     setMudei(true)
@@ -91,10 +90,6 @@ export default function Login() {
             />
           </section>
         </form>
-        <div
-          className={
-            time === 'mudei' ? 'entrance' : ''}>
-        </div>
       </section>
     </div>
     }
