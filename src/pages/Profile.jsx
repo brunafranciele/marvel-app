@@ -13,6 +13,9 @@ export default function Profile() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nameStorage, setNameStorage] = useState('');
+  const [emailStorage, setEmailStorage] = useState('');
+  const [passwordStorage, setPasswordStorage] = useState('');
   const [message, setMessage] = useState('');
   const [id, setId] = useState('');
   const [token, setToken] = useState('');
@@ -23,6 +26,7 @@ export default function Profile() {
     if (field === 'Email') return setEmail(value);
     return setPassword(value);
   };
+  // const {name: userName } = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     const { name, email, password, id, token } = verifyUser(history);
@@ -31,7 +35,10 @@ export default function Profile() {
     setPassword(password);
     setId(id);
     setToken(token);
-  }, [history]);
+    setNameStorage(name);
+    setPasswordStorage(password);
+    setEmailStorage(email);
+  }, [history, nameStorage, emailStorage, passwordStorage]);
 
   useEffect(() => {
     if (validateEmail(email)) {
@@ -46,7 +53,7 @@ export default function Profile() {
     return requestAPI;
   };
 
-  const timeGif = () => {
+  const timeMessage = () => {
     setTimeout(function () {
       setMessage('');
     }, 1000)
@@ -55,8 +62,8 @@ export default function Profile() {
   const handleClick = async () => {
     await updateUserOnDB(name, email, password, id, token);
     updateUser(name, email, password)
-    setMessage('Atualização concluída com sucesso');
-    timeGif()
+    setMessage('Update completed successfully');
+    timeMessage()
   }
 
   return (
@@ -91,6 +98,7 @@ export default function Profile() {
       {/* <section className="button profile-button"> */}
         <Button
           title="Save"
+          isDisabled={name === nameStorage && email === emailStorage && password === passwordStorage}
           onClick={handleClick}
           className="button profile-button"
         />

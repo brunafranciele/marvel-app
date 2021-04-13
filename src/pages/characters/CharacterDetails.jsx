@@ -10,6 +10,7 @@ import '../../styles/details.css'
 export default function CharacterDetails({ match: { params: { id } } }) {
   const [character, setCharacter] = useState([]);
   const [id_user, setId] = useState('');
+  const [message, setMessage] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -23,6 +24,12 @@ export default function CharacterDetails({ match: { params: { id } } }) {
     getCharacterId();
   }, [id, history]);
 
+  const timeMessage = () => {
+    setTimeout(function () {
+      setMessage('');
+    }, 1000)
+  }
+
   const getComicId = (cha) => {
     const splittedId = cha.resourceURI.split('/');
     const rightId = splittedId[6];
@@ -33,6 +40,8 @@ export default function CharacterDetails({ match: { params: { id } } }) {
     console.log(character.id, character.name, character.image, 'comics', id_user)
     const resultAPI = await addFavorite(character.id, character.name, character.image, 'comics', id_user);
     console.log(resultAPI)
+    setMessage('Favorite added successfully');
+    timeMessage()
   }
 
   return (
@@ -59,6 +68,7 @@ export default function CharacterDetails({ match: { params: { id } } }) {
           </div>
         ))}
         <a className='external' href={character.externalInformation}>External information</a>
+        {message ? <span className='add-fav'>{message}</span> : null}
         <button
         className='button'
         type='button'
