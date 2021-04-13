@@ -1,0 +1,43 @@
+
+.register-container{
+  background-color: black;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  align-self: center;
+  overflow:hidden;
+}
+
+
+.register-form{
+  width: 50%;
+
+}
+
+.logo-marvel-register{
+  width: 25%;
+  padding-top: 5%;
+}
+
+.button-register{
+  height: 12%;
+}
+
+@media screen and (max-width:800px){
+  .logo-marvel-register{
+    width: 40%;
+    padding-top: 10%;
+    padding-bottom: 5%;
+    margin-bottom: 5%;
+  }
+
+  .button-register{
+    height: 16%;
+    margin-top: 15%;
+  }
+}

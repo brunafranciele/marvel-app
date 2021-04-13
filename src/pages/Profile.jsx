@@ -6,6 +6,8 @@ import { validateEmail, validatePassword } from '../utils/validations';
 import { updateUser, verifyUser } from '../utils/localstorage';
 import { updateUserAPI } from '../service/nativeAPIRequest';
 import Menu from '../components/Menu';
+import '../styles/profile.css';
+import logoMarvel from '../images/logoM.jpg';
 
 export default function Profile() {
   const [name, setName] = useState('');
@@ -53,11 +55,13 @@ export default function Profile() {
   }
 
   return (
-    <div className="profile-main-div">
+    <div className="profile-container">
       <header>
         <Menu />
       </header>
-      <form className="d-flex flex-column mt-4">
+      <img className='logo-marvel-profile' src={logoMarvel} alt='logo marvel' />
+      <div className='content-profile'>
+      <form className="div-form">
         <div className="register-inputs">
           <Input
             title="Name"
@@ -79,13 +83,15 @@ export default function Profile() {
           />
         </div>
       </form>
-      <section className="register-section-btns">
+      {/* <section className="button profile-button"> */}
         <Button
           title="Save"
           isDisabled={isDisabled}
           onClick={handleClick}
+          className="button profile-button"
         />
-      </section>
+      {/* </section> */}
+      </div>
       {message ? <span>{message}</span> : null}
     </div>
   );

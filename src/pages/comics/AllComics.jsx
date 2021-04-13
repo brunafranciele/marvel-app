@@ -8,7 +8,8 @@ import { verifyUser } from '../../utils/localstorage';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Menu from '../../components/Menu';
-import '../../styles/Characters.css';
+import Loading from '../../components/Loading';
+import '../../styles/pages.css';
 
 export default function AllCharacters() {
   const [dataAPI, setDataAPI] = useState([]);
@@ -22,6 +23,14 @@ export default function AllCharacters() {
     var count = offset + 10;
     return setOffset(count);
   };
+
+  const handleClickBack = () => {
+    if(offset >=10 ) {
+    var count = offset - 10;
+    return setOffset(count);
+  }
+  }
+
   useEffect(() => {
     const { email } = verifyUser(history);
     if (!email) return null;
@@ -51,12 +60,15 @@ export default function AllCharacters() {
   };
 
   return (
-    <div >
-      <header>
+    <div className='page-container'>
+      <header className='header'>
         <Menu />
       </header>
-      <h2>Comics</h2>
       <div>
+      {dataAPI.length === 0 ? <Loading /> : 
+      <div>
+      <h1 className='title'>Comics</h1>
+      <div className='input-pages'>
         <Input
           title="Search Comic"
           type="text"
@@ -65,41 +77,47 @@ export default function AllCharacters() {
         />
         <Button
           title="Search"
-          className="indiv-btn"
           onClick={async () => await searchComicByTitle()}
         />
-        <button type="button" onClick={() => cleanState()}>Get All</button>
+        <button type="button" className='button' onClick={() => cleanState()}>Get All</button>
       </div>
-      {console.log(actualComic)}
-      <div>
+      <div className="all-cards">
         {
           actualComic === null ?
             dataAPI.map((comic, index) => (
-              <div key={index}>
-                <p>{comic.title}</p>
+              <div className='cards' key={index}>
+                <h3>{comic.title}</h3>
                 <img
                   className="character-pic"
                   src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
                   alt="Comic Thumbnail" />
-                <Link to={`/comics/${comic.id}`}>
+                <Link className='link' to={`/comics/${comic.id}`}>
                   <p>More details</p>
                 </Link>
               </div>
             )) :
-            <div>
-              <p>{actualComic.title}</p>
+            <div className="cards">
+              <h3>{actualComic.title}</h3>
               <img
                 className="character-pic"
                 src={actualComic.image}
                 alt="Character Thumbnail" />
-              <Link to={`/comics/${actualComic.id}`}>
+              <Link className='link' to={`/comics/${actualComic.id}`}>
                 <p>More details</p>
               </Link>
             </div>
         }
       </div>
-      <div>
-        <button type="button" onClick={() => handleClick()}>Next</button>
+      <div className='back-next'>
+        <Button
+        title='Back'
+        type="button"
+        onClick={() => handleClickBack()}
+        />
+        <button className='button' type="button" onClick={() => handleClick()}>Next</button>
+      </div>
+      </div>
+      }
       </div>
     </div>
   );

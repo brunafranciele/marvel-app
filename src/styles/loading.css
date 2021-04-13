@@ -1,0 +1,13 @@
+.gif-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  /* padding-left: 40%; */
+}
+
+/* .loading {
+  padding-top: 10%;
+  padding-left: 15%;
+} */

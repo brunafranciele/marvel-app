@@ -1,0 +1,32 @@
+.profile-container{
+  background-color: black;
+  height: 100vh;
+  max-height: 110vh;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: fixed;
+  overflow:hidden;
+}
+
+.content-profile{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 3%;
+  margin-left: 25%;
+}
+
+.register-inputs{
+  width: 60%;
+}
+
+.logo-marvel-profile{
+  width: 20%;
+  padding-left: 37%;
+  padding-top: 2%;
+}
+
+.profile-button{
+  margin-left: 10%;
+}

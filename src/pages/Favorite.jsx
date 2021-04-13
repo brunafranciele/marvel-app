@@ -3,6 +3,8 @@ import { useHistory, Link } from 'react-router-dom';
 import { verifyUser } from '../utils/localstorage';
 import { getFavoriteByUserId, deleteFavorite } from '../service/nativeAPIRequest';
 import Menu from '../components/Menu';
+import Loading from '../components/Loading';
+import '../styles/pages.css';
 
 export default function Favorite() {
   const [favorite, setFavorite] = useState([]);
@@ -40,25 +42,31 @@ export default function Favorite() {
   }
 
   return (
-    <div >
-      <header>
+    <div className='page-container favorite-page'>
+      <header className='header'>
         <Menu />
       </header>
-      <h2>Favorite</h2>
       <div>
+      {favorite.length === 0 ? <Loading /> : 
+        <div>
+      <h2 className='title'>Favorite</h2>
+      <div className="all-cards">
         {favorite.map((fav, index) => (
-          <div key={index}>
+          <div className='cards' key={index}>
             <p>{fav.name}</p>
             <img
               className="character-pic"
               src={fav.url_image && fav.url_image}
               alt="Favorite Thumbnail" />
-            <Link to={verifyTipyOfFavorite(fav)}>
+            <Link className='link' to={verifyTipyOfFavorite(fav)}>
               <p>More details</p>
             </Link>
-            <button type='button' onClick={() => removeFav(fav)}>Remove Favorite</button>
+            <button className='rm-favorite' type='button' onClick={() => removeFav(fav)}>Remove Favorite</button>
           </div>
         ))}
+      </div>
+      </div>
+      }
       </div>
     </div>
   )

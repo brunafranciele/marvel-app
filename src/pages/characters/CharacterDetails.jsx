@@ -4,7 +4,8 @@ import { getCharacterById, addFavorite } from '../../service/nativeAPIRequest';
 import { verifyUser } from '../../utils/localstorage';
 import { useHistory } from 'react-router-dom';
 import Menu from '../../components/Menu';
-import '../../styles/Characters.css'
+import Loading from '../../components/Loading';
+import '../../styles/details.css'
 
 export default function CharacterDetails({ match: { params: { id } } }) {
   const [character, setCharacter] = useState([]);
@@ -35,29 +36,39 @@ export default function CharacterDetails({ match: { params: { id } } }) {
   }
 
   return (
-    <div >
+    <div className='detail-container'>
       <header>
         <Menu />
       </header>
-      <h2>Character's Detail</h2>
       <div>
-        <h3>{character.name}</h3>
+      {character.length === 0 ? <Loading /> : 
+        <div>
+      <h1 className='title-detail'>Character's Detail</h1>
+      <div className='detail'>
+        <h2 className="name-detail">{character.name}</h2>
         <img
-          className="character-pic"
+          className="pic"
           src={character.image && character.image}
           alt="Character Thumbnail"
         />
-        <p>{character.description && character.description}</p>
-        <h4>Comics:</h4>
+        <p className="description">{character.description && character.description}</p>
+        <h4 className='related'>Comics:</h4>
         {character.comics && character.comics.map((element, index) => (
           <div key={index}>
-            <Link to={`/comics/${getComicId(element)}`}>{element.name}</Link>
+            <Link className='link' to={`/comics/${getComicId(element)}`}>{element.name}</Link>
           </div>
         ))}
-        <a href={character.externalInformation}>External information</a>
-        <button type='button' onClick={() => addFavoriteOnDB(character.id, character.name, character.image, 'comics', id_user)}>
+        <a className='external' href={character.externalInformation}>External information</a>
+        <button
+        className='button'
+        type='button'
+        onClick={() => addFavoriteOnDB(character.id, character.name, character.image, 'comics', id_user)}
+        >
           Favorite
         </button>
+      </div>
+      </div>
+}
       </div>
     </div>
   );

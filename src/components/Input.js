@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/Inputs.css';
 
 const Input = ({ title, type, onChange, value, placeholder }) => (
   <div className="defaultInput">
@@ -7,6 +8,7 @@ const Input = ({ title, type, onChange, value, placeholder }) => (
       {title}
     </label>
     <input
+      className='inputs'
       id={ title }
       type={ type }
       onChange={ (e) => onChange(title, e.target.value) }

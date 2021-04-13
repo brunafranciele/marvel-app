@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
+.menu-container{
+  font-family: 'Acme', sans-serif;
+  font-size: 2.5vh;
+  color: rgb(240, 236, 236);
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: black;
+  border-bottom: 10px double rgb(245, 16, 16);
+  border-top: 10px double rgb(245, 16, 16);
+  overflow:hidden;
+}
+
+.divs-menu {
+  padding-right: 5%;
+  padding-left: 5%;
+  width: 20%;
+}
+
+.first{
+  padding-left: 10%;
+}
+
+.text-menu{
+  text-decoration: none;
+  color: rgb(240, 236, 236);
+}
+
+.text-menu:hover{
+  font-size: 2.7vh;
+  color: rgb(245, 16, 16);
+}
+
+/* rgb(14, 17, 212); */

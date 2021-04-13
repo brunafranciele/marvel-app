@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+.detail-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: black;
+  font-family: 'Acme', sans-serif;
+  font-size: 2.3vh;
+  color: rgb(240, 236, 236);
+  padding-bottom: 1%;
+}
+
+.pic{
+  width: 22%;
+  border-radius: 3%;
+  box-shadow: 0 0 1em rgb(204, 204, 204);
+}
+.pic:hover {
+  transform: scale(1.1);
+}
+
+.detail{
+  width: 95%;
+  /* padding-left: 10%; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+}
+
+.description{
+  padding-top: 2%;
+  max-width: 60%;
+}
+
+.external{
+  padding-top: 1%;
+  padding-bottom: 1%;
+  text-decoration: none;
+  color: rgb(245, 16, 16);
+}
+
+.external:hover{
+  font-size: 2.2vh;
+  color: rgb(240, 236, 236);
+}
+
+.title-detail{
+  color: rgb(240, 236, 236);
+  margin-top: 2%;
+  margin-bottom: 1%;
+  text-align: center;
+  width: 90%;
+  font-size: 5vh;
+  padding-left: 2%;
+}
+
+.name-detail{
+  color: rgb(245, 16, 16);
+  font-size: 5vh;
+}
+
+.name-detail:hover{
+  font-size: 5.5vh;
+  color: rgb(240, 236, 236);
+}
+
+.related{
+  color: rgb(245, 16, 16);
+  font-size: 3vh;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 1%;
+}
+
+.link-comic-page{
+  text-decoration: none;
+  color: rgb(240, 236, 236);
+}
+
+.link-comic-page:hover{
+  font-size: 3vh;
+}

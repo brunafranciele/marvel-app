@@ -5,6 +5,8 @@ import Button from '../components/Button';
 import { validateEmail, validatePassword } from '../utils/validations';
 import { registerUser } from '../service/nativeAPIRequest';
 import { setUser } from '../utils/localstorage';
+import '../styles/register.css';
+import logoMarvel from '../images/logoM.jpg';
 
 export default function Register() {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -36,7 +38,9 @@ export default function Register() {
   };
 
   return (
-    <form className="inputs register-form">
+    <div className="register-container">
+      <img className='logo-marvel-register' src={logoMarvel} alt='logo marvel' />
+    <form className="register-form">
       <Input
         title="Name"
         type="text"
@@ -59,10 +63,12 @@ export default function Register() {
         placeholder="User password"
       />
       <Button
+        className="button-register button"
         title="Register"
         isDisabled={isDisabled}
         onClick={() => handleClick() }
       />
     </form>
+    </div>
   );
 }

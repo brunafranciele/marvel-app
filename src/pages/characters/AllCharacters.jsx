@@ -7,8 +7,9 @@ import { getCharacterByName } from '../../service/nativeAPIRequest';
 import { verifyUser } from '../../utils/localstorage';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Loading from '../../components/Loading';
 import Menu from '../../components/Menu';
-import '../../styles/Characters.css';
+import '../../styles/pages.css';
 
 export default function AllCharacters() {
   const [dataAPI, setDataAPI] = useState([]);
@@ -20,8 +21,16 @@ export default function AllCharacters() {
 
   const handleClick = () => {
     var count = offset + 10;
+
     return setOffset(count);
   };
+
+  const handleClickBack = () => {
+    if (offset >= 10) {
+      var count = offset - 10;
+      return setOffset(count);
+    }
+  }
 
   useEffect(() => {
     const { email } = verifyUser(history);
@@ -50,57 +59,69 @@ export default function AllCharacters() {
     setActualCharacter(null);
     setNameParameter('');
   };
-  
+
   return (
-    <div >
-      <header>
+    <div className='page-container'>
+      <header className='header'>
         <Menu />
       </header>
-      <h2>Characters</h2>
       <div>
-        <Input
-          title="Search Character"
-          type="text"
-          value={ nameParameter }
-          onChange={ setField }
-        />
-        <Button
-          title="Search"
-          className="indiv-btn"
-          onClick={ async () => await searchCharacterByName() }
-        />
-        <button type="button" onClick={() => cleanState()}>Get All</button>
-      </div>
-      {console.log(actualCharacter)}
-      <div>
-        {
-        actualCharacter === null ?
-        dataAPI.map((character, index) => (
-          <div key={ index }>
-            <p>{ character.name }</p>
-            <img
-              className="character-pic"
-              src={ `${character.thumbnail.path}.${character.thumbnail.extension}`}
-              alt="Character Thumbnail"/>
-            <Link to={`/characters/${character.id}`}>
-              <p>More details</p>
-            </Link>
-          </div>
-        )) :
+      {dataAPI.length === 0 ? <Loading /> : 
         <div>
-          <p>{ actualCharacter.name }</p>
-          <img
-            className="character-pic"
-            src={ actualCharacter.image && actualCharacter.image }
-            alt="Character Thumbnail"/>
-          <Link to={`/characters/${actualCharacter.id}`}>
-            <p>More details</p>
-          </Link>
+          <h2 className='title'>Characters</h2>
+          <div className='input-pages'>
+            <Input
+              title="Search Character"
+              type="text"
+              value={nameParameter}
+              onChange={setField}
+            />
+            <div className='buttons-search'>
+              <Button
+                title="Search"
+                onClick={async () => await searchCharacterByName()}
+              />
+              <button className='button' type="button" onClick={() => cleanState()}>Get All</button>
+            </div>
+          </div>
+          {console.log(actualCharacter)}
+          <div className="all-cards">
+            {
+              actualCharacter === null ?
+                dataAPI.map((character, index) => (
+                  <div className='cards' key={index}>
+                    <h3 >{character.name}</h3>
+                    <img
+                      className="character-pic"
+                      src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                      alt="Character Thumbnail" />
+                    <Link className='link' to={`/characters/${character.id}`}>
+                      <p>More details</p>
+                    </Link>
+                  </div>
+                )) :
+                <div className='cards'>
+                  <h3>{actualCharacter.name}</h3>
+                  <img
+                    className="character-pic"
+                    src={actualCharacter.image && actualCharacter.image}
+                    alt="Character Thumbnail" />
+                  <Link className='link' to={`/characters/${actualCharacter.id}`}>
+                    <p>More details</p>
+                  </Link>
+                </div>
+            }
+          </div>
+          <div className='back-next'>
+            <Button
+              title='Back'
+              type="button"
+              onClick={() => handleClickBack()}
+            />
+            <button className='button' type="button" onClick={() => handleClick()}>Next</button>
+          </div>
         </div>
-        }
-      </div>
-      <div>
-        <button type="button" onClick={() => handleClick()}>Next</button>
+}
       </div>
     </div>
   );

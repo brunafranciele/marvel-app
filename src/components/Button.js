@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/button.css';
 
 const Button = ({ title, isDisabled, onClick, className }) => (
   <button
@@ -25,7 +26,7 @@ Button.defaultProps = {
   isDisabled: false,
   onClick: () => {},
   userRole: '',
-  className: '',
+  className: 'button',
 };
 
 export default Button;
