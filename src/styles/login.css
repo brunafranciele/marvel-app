@@ -1,24 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 
-.entrance {
-  background-image: url('../images/estalo.gif');
-  background-size: 100%;
-  background-repeat: no-repeat;
-  height: 150%;
-  width: 100%;
-  position: fixed;
-  z-index: 3;
-  animation-name: antre;
-  animation-duration: 3s; 
-  animation-fill-mode: forwards;
-  margin-top: 10%;
-}
-
 .login-container {
     background: url('../images/backLogin.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    height: 120vh;
+    height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -27,6 +13,7 @@
     font-family: 'Acme', sans-serif;
     font-size: 2vh;
     color: rgb(240, 236, 236);
+    overflow:hidden;
 }
 
 .loginForm {
