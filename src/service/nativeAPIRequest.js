@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:3001/'
+const baseURL = 'https://marvel-back-bf.herokuapp.com/'
 const applicationJsonContent = 'application/json';
 export const getCharacterByName = async (name) => {
   const character = await fetch(`${baseURL}character/name/${name}`);
