@@ -27,6 +27,8 @@ Componentes:
 - Button
 - Input
 - Menu
+- Gif
+- Loading
 
 ---
 
